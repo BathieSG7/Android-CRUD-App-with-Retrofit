@@ -1,6 +1,14 @@
 <resources>
-    <string name="app_name">BottomNavigationDemo</string>
+    <string name="app_name">BankingApp</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+    <string name="user_name">Nom Client</string>
+    <string name="id">ID</string>
+    <string name="lister_clients">Lister Clients</string>
+    <string name="ajouter_client">Ajouter Client</string>
+    <string name="delete_client">Supprimer Client</string>
+    <string name="save">Enregistrer</string>
 </resources>

@@ -1,10 +1,11 @@
-package com.wajahatkarim3.bottomnavigationdemo
+package ssamba.ept.sn.bankingApp
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import ssamba.ept.sn.bankingApp.R
 
 /**
  * A simple [Fragment] subclass.
