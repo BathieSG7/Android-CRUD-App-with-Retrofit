@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
         NavigationUI.setupWithNavController(bottomNavView, navHostFragment.navController)
 
         //var appBarConfiguration = AppBarConfiguration(navHostFragment.navController.graph)
-        var appBarConfiguration = AppBarConfiguration(setOf(R.id.homeFragment, R.id.searchFragment, R.id.notificationsFragment, R.id.profileFragment))
+        var appBarConfiguration = AppBarConfiguration(setOf(R.id.homeFragment, R.id.searchFragment, R.id.profileFragment))
         setupActionBarWithNavController(navHostFragment.navController, appBarConfiguration)
     }
 
@@ -59,7 +59,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             backPressedOnce = true
-            Toast.makeText(this, "Press BACK again to exit", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Appuyez à nouveau sur RETOUR pour sortir", Toast.LENGTH_SHORT).show()
 
             Handler().postDelayed(2000) {
                 backPressedOnce = false
