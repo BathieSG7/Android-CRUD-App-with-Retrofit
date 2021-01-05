@@ -1,4 +1,4 @@
-package ssamba.ept.sn.bankingApp;
+package ssamba.ept.sn.bankingApp.views.Agence;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
-
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,16 +19,13 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import ssamba.ept.sn.bankingApp.R;
 import ssamba.ept.sn.bankingApp.model.Client;
 import ssamba.ept.sn.bankingApp.service.ClientService;
 import ssamba.ept.sn.bankingApp.service.config.APIUtils;
+import ssamba.ept.sn.bankingApp.views.Client.ClientAdapter;
 
-public class HomeFragment extends Fragment {
-
-   //public View onCreateView( LayoutInflater inflater,  ViewGroup container,  Bundle savedInstanceState) {
-
-        //return inflater.inflate(R.layout.fragment_home, container, false);
-
+public class AgenceFragment extends Fragment {
 
     Button btnAddClient;
     Button btnGetClientsList;
@@ -43,17 +39,16 @@ public class HomeFragment extends Fragment {
         super.onCreateView(inflater, container, savedInstanceState);
         clientService = APIUtils.getClientService();
         return inflater.inflate(R.layout.fragment_home, container, false);
-
-
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-       //setTitle("SAMA BANQUE CRUD App");
         btnAddClient = (Button) getView().findViewById(R.id.btnAddClient);
         btnGetClientsList = (Button) getView().findViewById(R.id.btnGetClientsList);
         listView = (ListView) getView().findViewById(R.id.listView);
+
+        //getClientsList();
 
         btnGetClientsList.setOnClickListener(v -> {
             getClientsList(); //get clients list

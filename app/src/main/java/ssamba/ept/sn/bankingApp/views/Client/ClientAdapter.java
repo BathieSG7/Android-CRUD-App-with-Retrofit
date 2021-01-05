@@ -1,4 +1,4 @@
-package ssamba.ept.sn.bankingApp;
+package ssamba.ept.sn.bankingApp.views.Client;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -8,13 +8,13 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-
 import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.navigation.Navigation;
 
 import java.util.List;
 
+import ssamba.ept.sn.bankingApp.R;
 import ssamba.ept.sn.bankingApp.model.Client;
 
 
@@ -41,15 +41,10 @@ public class ClientAdapter extends ArrayAdapter<Client> {
         txtClientname.setText(String.format("CLIENT NAME: %s", clients.get(pos).getNom()));
 
         rowView.setOnClickListener(v -> {
-            //start Activity Client Form
-            //Intent intent = new Intent(context, ClientDetailsFragment.class);
-           // intent.putExtra();
-            //intent.putExtra("client_name", clients.get(pos).getNom());
-            //context.startActivity(intent);
+            //Navigate to Client Form
             Bundle infoClient = new Bundle();
             infoClient.putString("client_id", String.valueOf(clients.get(pos).getId()));
             infoClient.putString("client_name", clients.get(pos).getNom());
-
             Navigation.findNavController(v).navigate(R.id.clientDetailsFragment,infoClient);
         });
 

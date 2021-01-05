@@ -1,35 +1,33 @@
-package ssamba.ept.sn.bankingApp;
+package ssamba.ept.sn.bankingApp.views.Client;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import ssamba.ept.sn.bankingApp.MainActivity;
+import ssamba.ept.sn.bankingApp.R;
 import ssamba.ept.sn.bankingApp.model.Client;
 import ssamba.ept.sn.bankingApp.service.ClientService;
 import ssamba.ept.sn.bankingApp.service.config.APIUtils;
+import ssamba.ept.sn.bankingApp.views.utils.NestedScreenFragment;
 
 
-public class ClientDetailsFragment extends Fragment {
+public class ClientDetailsFragment extends NestedScreenFragment {
 
     ClientService clientService;
     EditText edtUId;
@@ -39,18 +37,6 @@ public class ClientDetailsFragment extends Fragment {
     TextView txtUId;
 
 
-// BOTTOM BAR
-    @Override
-    public void onAttach(@NonNull Context context) {
-        super.onAttach(context);
-        ((MainActivity) context).hideBottomNavigation();
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        ((MainActivity) getContext()).showBottomNavigation();
-    }
 
 
     @Nullable
@@ -105,7 +91,7 @@ public class ClientDetailsFragment extends Fragment {
 
         btnDel.setOnClickListener(v -> {
             deleteClient(Integer.parseInt(clientId));
-            Navigation.findNavController(v).navigate(R.id.homeFragment);
+            Navigation.findNavController(v).popBackStack();
         });
     }
 

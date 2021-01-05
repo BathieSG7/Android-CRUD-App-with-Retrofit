@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="ssamba.ept.sn.bankingApp.HomeFragment"
+        android:name="ssamba.ept.sn.bankingApp.views.Client.HomeFragment"
         android:label="Home"
         tools:layout="@layout/fragment_home" >
         <action
@@ -40,7 +40,7 @@
         tools:layout="@layout/fragment_notification_details" />
     <fragment
         android:id="@+id/clientDetailsFragment"
-        android:name="ssamba.ept.sn.bankingApp.ClientDetailsFragment"
+        android:name="ssamba.ept.sn.bankingApp.views.Client.ClientDetailsFragment"
         android:label="Opérations sur Client"
         tools:layout="@layout/fragment_client_details" />
 </navigation>
