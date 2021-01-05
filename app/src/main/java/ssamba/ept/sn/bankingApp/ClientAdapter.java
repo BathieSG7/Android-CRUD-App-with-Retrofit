@@ -1,7 +1,7 @@
 package ssamba.ept.sn.bankingApp;
 
 import android.content.Context;
-import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
+import androidx.navigation.Navigation;
 
 import java.util.List;
 
@@ -39,15 +40,17 @@ public class ClientAdapter extends ArrayAdapter<Client> {
         txtClientId.setText(String.format("#ID: %d", clients.get(pos).getId()));
         txtClientname.setText(String.format("CLIENT NAME: %s", clients.get(pos).getNom()));
 
-        rowView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //start Activity Client Form
-                Intent intent = new Intent(context, ClientActivity.class);
-                intent.putExtra("client_id", String.valueOf(clients.get(pos).getId()));
-                intent.putExtra("client_name", clients.get(pos).getNom());
-                context.startActivity(intent);
-            }
+        rowView.setOnClickListener(v -> {
+            //start Activity Client Form
+            //Intent intent = new Intent(context, ClientDetailsFragment.class);
+           // intent.putExtra();
+            //intent.putExtra("client_name", clients.get(pos).getNom());
+            //context.startActivity(intent);
+            Bundle infoClient = new Bundle();
+            infoClient.putString("client_id", String.valueOf(clients.get(pos).getId()));
+            infoClient.putString("client_name", clients.get(pos).getNom());
+
+            Navigation.findNavController(v).navigate(R.id.clientDetailsFragment,infoClient);
         });
 
         return rowView;

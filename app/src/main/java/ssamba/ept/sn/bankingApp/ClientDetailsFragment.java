@@ -1,16 +1,25 @@
 package ssamba.ept.sn.bankingApp;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -20,7 +29,7 @@ import ssamba.ept.sn.bankingApp.service.ClientService;
 import ssamba.ept.sn.bankingApp.service.config.APIUtils;
 
 
-public class ClientActivity extends AppCompatActivity {
+public class ClientDetailsFragment extends Fragment {
 
     ClientService clientService;
     EditText edtUId;
@@ -29,25 +38,47 @@ public class ClientActivity extends AppCompatActivity {
     Button btnDel;
     TextView txtUId;
 
+
+// BOTTOM BAR
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_client);
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        ((MainActivity) context).hideBottomNavigation();
+    }
 
-        setTitle("Clients");
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        ((MainActivity) getContext()).showBottomNavigation();
+    }
 
-        txtUId = (TextView) findViewById(R.id.txtUId);
-        edtUId = (EditText) findViewById(R.id.edtUId);
-        edtClientname = (EditText) findViewById(R.id.edtClientname);
-        btnSave = (Button) findViewById(R.id.btnSave);
-        btnDel = (Button) findViewById(R.id.btnDel);
+
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        super.onCreateView(inflater, container, savedInstanceState);
 
         clientService = APIUtils.getClientService();
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_client_details, container, false);
+    }
 
-        Bundle extras = getIntent().getExtras();
-        final String clientId = extras.getString("client_id");
-        String clientNom = extras.getString("client_name");
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        //setTitle("Clients");
+
+       // view = getView();
+        txtUId = (TextView) getView().findViewById(R.id.txtUId);
+        edtUId = (EditText) getView().findViewById(R.id.edtUId);
+        edtClientname = (EditText) getView().findViewById(R.id.edtClientname);
+        btnSave = (Button) getView().findViewById(R.id.btnSave);
+        btnDel = (Button) getView().findViewById(R.id.btnDel);
+
+         Bundle bundle  = getArguments();
+        //Bundle extras = getIntent().getExtras();
+        final String clientId = bundle.getString("client_id");
+        String clientNom = bundle.getString("client_name");
 
         edtUId.setText(clientId);
         edtClientname.setText(clientNom);
@@ -60,32 +91,24 @@ public class ClientActivity extends AppCompatActivity {
             btnDel.setVisibility(View.INVISIBLE);
         }
 
-        btnSave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Client u = new Client();
-                u.setNom(edtClientname.getText().toString());
-                if(clientId != null && clientId.trim().length() > 0){
-                    //update client
-                    updateClient(Integer.parseInt(clientId), u);
-                } else {
-                    //add client
-                    addClient(u);
-                }
+        btnSave.setOnClickListener(v -> {
+            Client u = new Client();
+            u.setNom(edtClientname.getText().toString());
+            if(clientId != null && clientId.trim().length() > 0){
+                //update client
+                updateClient(Integer.parseInt(clientId), u);
+            } else {
+                //add client
+                addClient(u);
             }
         });
 
-        btnDel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                deleteClient(Integer.parseInt(clientId));
-
-                Intent intent = new Intent(ClientActivity.this, MainActivity.class);
-                startActivity(intent);
-            }
+        btnDel.setOnClickListener(v -> {
+            deleteClient(Integer.parseInt(clientId));
+            Navigation.findNavController(v).navigate(R.id.homeFragment);
         });
-
     }
+
 
     public void addClient(Client clt){
         Call<Client> call = clientService.addClient(clt);
@@ -93,7 +116,7 @@ public class ClientActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<Client> call, Response<Client> response) {
                 if(response.isSuccessful()){
-                    Toast.makeText(ClientActivity.this, "Client created successfully!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Client created successfully!", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -110,7 +133,7 @@ public class ClientActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<Client> call, Response<Client> response) {
                 if(response.isSuccessful()){
-                    Toast.makeText(ClientActivity.this, "Client updated successfully!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Client updated successfully!", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -127,7 +150,7 @@ public class ClientActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<Client> call, Response<Client> response) {
                 if(response.isSuccessful()){
-                    Toast.makeText(ClientActivity.this, "Client deleted successfully!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Client deleted successfully!", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -138,6 +161,7 @@ public class ClientActivity extends AppCompatActivity {
         });
     }
 
+    /*
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -147,5 +171,5 @@ public class ClientActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
-    }
+    }*/
 }

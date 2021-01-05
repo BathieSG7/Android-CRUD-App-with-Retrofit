@@ -1,7 +1,5 @@
 package ssamba.ept.sn.bankingApp;
 
-
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,7 +9,10 @@ import android.widget.Button;
 import android.widget.ListView;
 
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,30 +41,28 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater,  ViewGroup container,  Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        //setContentView(R.layout.activity_main_);
-        return inflater.inflate(R.layout.fragment_home, container, false);
-        //setTitle("SAMA BANQUE CRUD App");
-
-        btnAddClient = (Button) findViewById(R.id.btnAddClient);
-        btnGetClientsList = (Button) findViewById(R.id.btnGetClientsList);
-        listView = (ListView) findViewById(R.id.listView);
         clientService = APIUtils.getClientService();
+        return inflater.inflate(R.layout.fragment_home, container, false);
 
-        btnGetClientsList.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //get clients list
-                getClientsList();
-            }
+
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+       //setTitle("SAMA BANQUE CRUD App");
+        btnAddClient = (Button) getView().findViewById(R.id.btnAddClient);
+        btnGetClientsList = (Button) getView().findViewById(R.id.btnGetClientsList);
+        listView = (ListView) getView().findViewById(R.id.listView);
+
+        btnGetClientsList.setOnClickListener(v -> {
+            getClientsList(); //get clients list
         });
 
-        btnAddClient.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivit.this, ClientActivity.class);
-                intent.putExtra("client_name", "");
-                startActivity(intent);
-            }
+        btnAddClient.setOnClickListener(v -> {
+            Bundle bundle = new Bundle();
+            bundle.putString("client_name", "");
+            Navigation.findNavController(v).navigate(R.id.action_homeFragment_to_clientDetailsFragment,bundle);
         });
     }
 
@@ -74,7 +73,7 @@ public class HomeFragment extends Fragment {
             public void onResponse(Call<List<Client>> call, Response<List<Client>> response) {
                 if(response.isSuccessful()){
                     list = response.body();
-                    listView.setAdapter(new ClientAdapter(MainActivit.this, R.layout.list_client, list));
+                    listView.setAdapter(new ClientAdapter(getContext(), R.layout.list_client, list));
                 }
             }
 

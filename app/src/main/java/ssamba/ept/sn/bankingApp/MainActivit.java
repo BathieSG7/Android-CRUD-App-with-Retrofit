@@ -55,7 +55,7 @@ public class MainActivit extends AppCompatActivity {
         btnAddClient.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivit.this, ClientActivity.class);
+                Intent intent = new Intent(MainActivit.this, ClientDetailsFragment.class);
                 intent.putExtra("client_name", "");
                 startActivity(intent);
             }

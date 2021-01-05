@@ -9,15 +9,38 @@
         android:id="@+id/homeFragment"
         android:name="ssamba.ept.sn.bankingApp.HomeFragment"
         android:label="Home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_clientDetailsFragment"
+            app:destination="@id/clientDetailsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/searchFragment"
         android:name="ssamba.ept.sn.bankingApp.SearchFragment"
         android:label="Search"
         tools:layout="@layout/fragment_search" />
     <fragment
+        android:id="@+id/notificationsFragment"
+        android:name="ssamba.ept.sn.bankingApp.NotificationsFragment"
+        android:label="Notifications"
+        tools:layout="@layout/fragment_notifications" >
+        <action
+            android:id="@+id/action_notificationsFragment_to_notificationDetailsFragment"
+            app:destination="@id/notificationDetailsFragment" />
+    </fragment>
+    <fragment
         android:id="@+id/profileFragment"
         android:name="ssamba.ept.sn.bankingApp.ProfileFragment"
         android:label="Profile"
         tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/notificationDetailsFragment"
+        android:name="ssamba.ept.sn.bankingApp.NotificationDetailsFragment"
+        android:label="Notification Details"
+        tools:layout="@layout/fragment_notification_details" />
+    <fragment
+        android:id="@+id/clientDetailsFragment"
+        android:name="ssamba.ept.sn.bankingApp.ClientDetailsFragment"
+        android:label="Opérations sur Client"
+        tools:layout="@layout/fragment_client_details" />
 </navigation>
