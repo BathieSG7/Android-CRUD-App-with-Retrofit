@@ -47,7 +47,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/save"
-            android:background="#32CD32"
+            android:backgroundTint="#32CD32"
             android:textColor="#ffffff"
             android:layout_marginBottom="5dp"
             />
@@ -57,7 +57,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/delete_client"
-            android:background="#FF0000"
+            android:backgroundTint="#FF0000"
             android:textColor="#ffffff"
             />
 

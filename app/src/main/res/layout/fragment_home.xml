@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/ajouter_client"
-            android:background="#BA55D3"
+            android:backgroundTint="#BA55D3"
             android:textColor="#ffffff"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
@@ -27,7 +27,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/lister_clients"
-            android:background="#32CD32"
+            android:backgroundTint="#32CD32"
             android:textColor="#ffffff"
             android:layout_marginBottom="5dp"
             />
