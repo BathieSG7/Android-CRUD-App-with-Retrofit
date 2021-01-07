@@ -1,2 +1,2 @@
-rootProject.name='BottomNavigationDemo'
+rootProject.name='AndroidCrudWithRetrofit'
 include ':app'

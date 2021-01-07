@@ -1,4 +1,4 @@
-package ssamba.ept.sn.bankingApp.views.Client;
+package ssamba.ept.sn.bankingApp.views.client;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 
 import androidx.annotation.NonNull;
@@ -38,7 +39,7 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater,  ViewGroup container,  Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         clientService = APIUtils.getClientService();
-        return inflater.inflate(R.layout.fragment_home, container, false);
+        return inflater.inflate(R.layout.fragment_client, container, false);
     }
 
     @Override
@@ -74,6 +75,9 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onFailure(Call<List<Client>> call, Throwable t) {
+                
+               if(getContext()!=null)
+                    Toast.makeText(getContext(), "Une ERREUR s'est produite!", Toast.LENGTH_SHORT).show();
                 Log.e("ERROR: ", t.getMessage());
             }
         });

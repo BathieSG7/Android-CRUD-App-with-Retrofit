@@ -55,4 +55,6 @@ public class Client {
     @Expose
     private List<Compte> comptes ;
 
+
+
 }

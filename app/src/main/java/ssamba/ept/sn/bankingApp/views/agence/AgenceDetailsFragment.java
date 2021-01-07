@@ -1,4 +1,4 @@
-package ssamba.ept.sn.bankingApp.views.Agence;
+package ssamba.ept.sn.bankingApp.views.agence;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -14,26 +14,32 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.navigation.Navigation;
 
+import com.google.gson.Gson;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import ssamba.ept.sn.bankingApp.R;
-import ssamba.ept.sn.bankingApp.model.Client;
-import ssamba.ept.sn.bankingApp.service.ClientService;
+import ssamba.ept.sn.bankingApp.model.Agence;
+import ssamba.ept.sn.bankingApp.service.AgenceService;
 import ssamba.ept.sn.bankingApp.service.config.APIUtils;
 import ssamba.ept.sn.bankingApp.views.utils.NestedScreenFragment;
 
 
 public class AgenceDetailsFragment extends NestedScreenFragment {
 
-    ClientService clientService;
-    EditText edtUId;
-    EditText edtClientname;
+    AgenceService agenceService;
+    EditText edtAgId;
+    EditText edtAgName;
     Button btnSave;
     Button btnDel;
-    TextView txtUId;
+    TextView txtAgId;
+    TextView edtAgAddress;
+    TextView edtAgPhone;
 
-
+    final String TAG = this.getClass().getName();
+    private  Boolean isUpdating;
+    private Agence agence ;
 
 
     @Nullable
@@ -41,104 +47,127 @@ public class AgenceDetailsFragment extends NestedScreenFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
 
-        clientService = APIUtils.getClientService();
+        agenceService = APIUtils.getAgenceService();
+        agence = new Agence();
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_client_details, container, false);
+        return inflater.inflate(R.layout.fragment_agence_details, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        //setTitle("Clients");
-
+        //setTitle("Agences");
+        isUpdating = !(getArguments()==null) ;
        // view = getView();
-        txtUId = (TextView) getView().findViewById(R.id.txtUId);
-        edtUId = (EditText) getView().findViewById(R.id.edtUId);
-        edtClientname = (EditText) getView().findViewById(R.id.edtClientname);
+        txtAgId = (TextView) getView().findViewById(R.id.txtAgId);
+        edtAgId = (EditText) getView().findViewById(R.id.edtAgId);
+        edtAgName = (EditText) getView().findViewById(R.id.edtAgName);
+        edtAgAddress = (EditText) getView().findViewById(R.id.edtAgAddress);
+        edtAgPhone =  (EditText) getView().findViewById(R.id.edtTxtAgPhone);
         btnSave = (Button) getView().findViewById(R.id.btnSave);
         btnDel = (Button) getView().findViewById(R.id.btnDel);
 
-         Bundle bundle  = getArguments();
-        //Bundle extras = getIntent().getExtras();
-        final String clientId = bundle.getString("client_id");
-        String clientNom = bundle.getString("client_name");
+        Log.d(TAG, "onViewCreated: "+getArguments());
 
-        edtUId.setText(clientId);
-        edtClientname.setText(clientNom);
-
-        if(clientId != null && clientId.trim().length() > 0 ){
-            edtUId.setFocusable(false);
-        } else {
-            txtUId.setVisibility(View.INVISIBLE);
-            edtUId.setVisibility(View.INVISIBLE);
+        if(isUpdating){
+            agence = new Gson().fromJson( getArguments().getString("agence"), Agence.class);
+            edtAgId.setText(agence.getId()+"");
+            edtAgName.setText(agence.getNom());
+            edtAgAddress.setText(agence.getAdresse());
+            edtAgPhone.setText(agence.getTelephone());
+        }  else{
+            edtAgId.setFocusable(false);
+            txtAgId.setVisibility(View.INVISIBLE);
+            edtAgId.setVisibility(View.INVISIBLE);
             btnDel.setVisibility(View.INVISIBLE);
         }
 
         btnSave.setOnClickListener(v -> {
-            Client u = new Client();
-            u.setNom(edtClientname.getText().toString());
-            if(clientId != null && clientId.trim().length() > 0){
-                //update client
-                updateClient(Integer.parseInt(clientId), u);
-            } else {
-                //add client
-                addClient(u);
-            }
+            if (!validateForm()) return;
+            if(isUpdating)
+                updateAgence(agence);
+            else
+                addAgence(agence);
+
         });
 
         btnDel.setOnClickListener(v -> {
-            deleteClient(Integer.parseInt(clientId));
+            deleteAgence(agence.getId());
             Navigation.findNavController(v).popBackStack();
         });
     }
 
 
-    public void addClient(Client clt){
-        Call<Client> call = clientService.addClient(clt);
-        call.enqueue(new Callback<Client>() {
+        public Boolean validateForm(){
+            if(edtAgName.getText().length()!=0 && edtAgPhone.getText().length()!=0 && edtAgName.getText().length()!=0 ){
+                agence.setAdresse(edtAgName.getText().toString());
+                agence.setTelephone(edtAgPhone.getText().toString());
+                agence.setNom(edtAgName.getText().toString());
+                return true;
+            } else  {
+                Toast.makeText(getContext(), "ERREUR ! L'UNE DES ENTRÉES EST VIDE", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+        }
+
+    public void addAgence(Agence agence){
+        Call<Agence> call = agenceService.addAgence(agence);
+        call.enqueue(new Callback<Agence>() {
             @Override
-            public void onResponse(Call<Client> call, Response<Client> response) {
+            public void onResponse(Call<Agence> call, Response<Agence> response) {
                 if(response.isSuccessful()){
-                    Toast.makeText(getContext(), "Client created successfully!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Agence créée avec succès!", Toast.LENGTH_LONG).show();
                 }
             }
 
             @Override
-            public void onFailure(Call<Client> call, Throwable t) {
+            public void onFailure(Call<Agence> call, Throwable t) {
+                
+               if(getContext()!=null)
+                    Toast.makeText(getContext(), "Une ERREUR s'est produite!", Toast.LENGTH_SHORT).show();
                 Log.e("ERROR: ", t.getMessage());
             }
         });
     }
 
-    public void updateClient(int id, Client u){
-        Call<Client> call = clientService.updateClient(id, u);
-        call.enqueue(new Callback<Client>() {
+    public void updateAgence(Agence agence){
+        Log.d(TAG, "updateAgence: "+agence);
+        Call<Agence> call = agenceService.updateAgence(agence.getId(), agence);
+
+        call.enqueue(new Callback<Agence>() {
             @Override
-            public void onResponse(Call<Client> call, Response<Client> response) {
+            public void onResponse(Call<Agence> call, Response<Agence> response) {
                 if(response.isSuccessful()){
-                    Toast.makeText(getContext(), "Client updated successfully!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Agence mis à jour avec succès!", Toast.LENGTH_LONG).show();
                 }
             }
 
             @Override
-            public void onFailure(Call<Client> call, Throwable t) {
+            public void onFailure(Call<Agence> call, Throwable t) {
+                
+               if(getContext()!=null)
+                    Toast.makeText(getContext(), "Une ERREUR s'est produite!", Toast.LENGTH_SHORT).show();
                 Log.e("ERROR: ", t.getMessage());
             }
         });
+
     }
 
-    public void deleteClient(int id){
-        Call<Client> call = clientService.deleteClient(id);
-        call.enqueue(new Callback<Client>() {
+    public void deleteAgence(int id){
+        Call<Agence> call = agenceService.deleteAgence(id);
+        call.enqueue(new Callback<Agence>() {
             @Override
-            public void onResponse(Call<Client> call, Response<Client> response) {
+            public void onResponse(Call<Agence> call, Response<Agence> response) {
                 if(response.isSuccessful()){
-                    Toast.makeText(getContext(), "Client deleted successfully!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Agence Supprimé avec succès!", Toast.LENGTH_LONG).show();
                 }
             }
 
             @Override
-            public void onFailure(Call<Client> call, Throwable t) {
+            public void onFailure(Call<Agence> call, Throwable t) {
+                
+               if(getContext()!=null)
+                    Toast.makeText(getContext(), "Une ERREUR s'est produite!", Toast.LENGTH_SHORT).show();
                 Log.e("ERROR: ", t.getMessage());
             }
         });

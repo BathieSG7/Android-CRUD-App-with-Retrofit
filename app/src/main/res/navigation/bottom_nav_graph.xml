@@ -3,44 +3,52 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/bottom_nav_graph.xml"
-    app:startDestination="@id/homeFragment">
+    app:startDestination="@id/agenceFragment">
 
     <fragment
-        android:id="@+id/homeFragment"
-        android:name="ssamba.ept.sn.bankingApp.views.Client.HomeFragment"
-        android:label="Home"
-        tools:layout="@layout/fragment_home" >
+        android:id="@+id/clientFragment"
+        android:name="ssamba.ept.sn.bankingApp.views.client.HomeFragment"
+        android:label="@string/client"
+        tools:layout="@layout/fragment_client" >
         <action
             android:id="@+id/action_homeFragment_to_clientDetailsFragment"
             app:destination="@id/clientDetailsFragment" />
     </fragment>
+
     <fragment
-        android:id="@+id/searchFragment"
-        android:name="ssamba.ept.sn.bankingApp.SearchFragment"
-        android:label="Search"
-        tools:layout="@layout/fragment_search" />
-    <fragment
-        android:id="@+id/notificationsFragment"
-        android:name="ssamba.ept.sn.bankingApp.NotificationsFragment"
-        android:label="Notifications"
-        tools:layout="@layout/fragment_notifications" >
+        android:id="@+id/agenceFragment"
+        android:name="ssamba.ept.sn.bankingApp.views.agence.AgenceFragment"
+        android:label="Agence"
+        tools:layout="@layout/fragment_agence" >
         <action
-            android:id="@+id/action_notificationsFragment_to_notificationDetailsFragment"
-            app:destination="@id/notificationDetailsFragment" />
+            android:id="@+id/action_homeFragment_to_agenceDetailsFragment"
+            app:destination="@id/agenceDetailsFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/compteFragment"
+        android:name="ssamba.ept.sn.bankingApp.views.compte.CompteFragment"
+        android:label="Compte"
+        tools:layout="@layout/fragment_compte" >
+        <action
+            android:id="@+id/action_compteFragment_to_compteDetailsFragment"
+            app:destination="@id/compteDetailsFragment" />
     </fragment>
     <fragment
-        android:id="@+id/profileFragment"
-        android:name="ssamba.ept.sn.bankingApp.ProfileFragment"
-        android:label="Profile"
-        tools:layout="@layout/fragment_profile" />
-    <fragment
-        android:id="@+id/notificationDetailsFragment"
-        android:name="ssamba.ept.sn.bankingApp.NotificationDetailsFragment"
-        android:label="Notification Details"
-        tools:layout="@layout/fragment_notification_details" />
+        android:id="@+id/compteDetailsFragment"
+        android:name="ssamba.ept.sn.bankingApp.views.compte.CompteDetailsFragment"
+        android:label="Opérations sur Compte"
+        tools:layout="@layout/fragment_compte_details" />
+
     <fragment
         android:id="@+id/clientDetailsFragment"
-        android:name="ssamba.ept.sn.bankingApp.views.Client.ClientDetailsFragment"
+        android:name="ssamba.ept.sn.bankingApp.views.client.ClientDetailsFragment"
         android:label="Opérations sur Client"
         tools:layout="@layout/fragment_client_details" />
+    <fragment
+        android:id="@+id/agenceDetailsFragment"
+        android:name="ssamba.ept.sn.bankingApp.views.agence.AgenceDetailsFragment"
+        android:label="Opérations en Agence"
+        tools:layout="@layout/fragment_agence_details" />
+
 </navigation>

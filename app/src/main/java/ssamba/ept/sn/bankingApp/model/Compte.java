@@ -2,6 +2,7 @@ package ssamba.ept.sn.bankingApp.model;
 
 
 import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -27,19 +28,21 @@ public class Compte {
     @Expose
     private double decouvert;
 
+    @Expose
+    private double client ;
 
-    //@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-    //@JsonIdentityReference(alwaysAsId = true)
-    @Expose(deserialize = false)
-    private Client client ;
+    @Expose
+    private double agence ;
 
-
-
-    //@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "code")
-    //@JsonIdentityReference(alwaysAsId = true)
-    @Expose(deserialize = false)
-    private Agence agence ;
 /*
+    //@SerializedName("compte")
+    //@Expose(serialize = false)
+    private int compteId;
+
+    //@SerializedName("client")
+    //@Expose(serialize = false)
+    private int clientId;
+
     @Expose(serialize = false)
     private int clientId ;
     @Expose(serialize = false)

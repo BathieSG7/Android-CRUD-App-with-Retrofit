@@ -1,6 +1,5 @@
-package ssamba.ept.sn.bankingApp.views.Client;
+package ssamba.ept.sn.bankingApp.views.client;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,13 +12,11 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.navigation.Navigation;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import ssamba.ept.sn.bankingApp.MainActivity;
 import ssamba.ept.sn.bankingApp.R;
 import ssamba.ept.sn.bankingApp.model.Client;
 import ssamba.ept.sn.bankingApp.service.ClientService;
@@ -55,9 +52,9 @@ public class ClientDetailsFragment extends NestedScreenFragment {
         //setTitle("Clients");
 
        // view = getView();
-        txtUId = (TextView) getView().findViewById(R.id.txtUId);
-        edtUId = (EditText) getView().findViewById(R.id.edtUId);
-        edtClientname = (EditText) getView().findViewById(R.id.edtClientname);
+        txtUId = (TextView) getView().findViewById(R.id.txtCltId);
+        edtUId = (EditText) getView().findViewById(R.id.edtCltId);
+        edtClientname = (EditText) getView().findViewById(R.id.edtClientName);
         btnSave = (Button) getView().findViewById(R.id.btnSave);
         btnDel = (Button) getView().findViewById(R.id.btnDel);
 
@@ -108,6 +105,9 @@ public class ClientDetailsFragment extends NestedScreenFragment {
 
             @Override
             public void onFailure(Call<Client> call, Throwable t) {
+                
+               if(getContext()!=null)
+                    Toast.makeText(getContext(), "Une ERREUR s'est produite!", Toast.LENGTH_SHORT).show();
                 Log.e("ERROR: ", t.getMessage());
             }
         });
@@ -125,6 +125,9 @@ public class ClientDetailsFragment extends NestedScreenFragment {
 
             @Override
             public void onFailure(Call<Client> call, Throwable t) {
+                
+               if(getContext()!=null)
+                    Toast.makeText(getContext(), "Une ERREUR s'est produite!", Toast.LENGTH_SHORT).show();
                 Log.e("ERROR: ", t.getMessage());
             }
         });
@@ -142,6 +145,9 @@ public class ClientDetailsFragment extends NestedScreenFragment {
 
             @Override
             public void onFailure(Call<Client> call, Throwable t) {
+                
+               if(getContext()!=null)
+                    Toast.makeText(getContext(), "Une ERREUR s'est produite!", Toast.LENGTH_SHORT).show();
                 Log.e("ERROR: ", t.getMessage());
             }
         });

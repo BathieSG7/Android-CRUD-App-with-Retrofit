@@ -1,4 +1,4 @@
-package ssamba.ept.sn.bankingApp.views.Client;
+package ssamba.ept.sn.bankingApp.views.client;
 
 import android.content.Context;
 import android.os.Bundle;

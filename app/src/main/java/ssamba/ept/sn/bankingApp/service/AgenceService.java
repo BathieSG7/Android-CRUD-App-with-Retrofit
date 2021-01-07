@@ -16,7 +16,7 @@ import ssamba.ept.sn.bankingApp.model.Agence;
 public interface AgenceService {
 
     @GET("agence/")
-    Call<List<Agence>> getAgence();
+    Call<List<Agence>> getAgences();
 
     @POST("agence/")
     Call<Agence> addAgence(@Body Agence user);

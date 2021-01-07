@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".views.compte.CompteDetailsFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+
+        <TextView
+            android:id="@+id/txtCptId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/code"
+            android:textSize="20dp"
+            android:layout_marginTop="5dp"
+            />
+
+        <EditText
+            android:id="@+id/edtCptId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            />
+
+        <TextView
+            android:id="@+id/txtCptDecouvert"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/decouvert_compte"
+            android:textSize="20dp"
+            android:layout_marginTop="5dp"
+            />
+
+        <EditText
+            android:id="@+id/edtCptDecouvert"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            />
+
+        <TextView
+            android:id="@+id/txtCptSolde"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Solde"
+            android:textSize="20dp"
+            android:layout_marginTop="5dp"
+            />
+        <EditText
+            android:id="@+id/edtCptSolde"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            />
+
+        <TextView
+            android:id="@+id/txtCptClient"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Client"
+            android:textSize="20dp"
+            android:layout_marginTop="5dp"
+            />
+
+
+        <EditText
+            android:id="@+id/edtTxtCptClient"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="number" />
+
+
+        <TextView
+            android:id="@+id/txtCptAgence"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Agence"
+            android:textSize="20dp"
+            android:layout_marginTop="5dp"
+            />
+        <EditText
+            android:id="@+id/edtTxtCptAgence"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="number"/>
+
+        <Button
+            android:id="@+id/btnSave"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/save"
+            android:backgroundTint="#32CD32"
+            android:textColor="#ffffff"
+            android:layout_marginBottom="5dp"
+            />
+
+        <Button
+            android:id="@+id/btnDel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/delete_client"
+            android:backgroundTint="#FF0000"
+            android:textColor="#ffffff"
+            />
+
+    </LinearLayout>
+</FrameLayout>

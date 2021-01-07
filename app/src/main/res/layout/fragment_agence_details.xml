@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".views.client.ClientDetailsFragment">
+    tools:context=".views.agence.AgenceDetailsFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -12,35 +12,68 @@
         >
 
         <TextView
-            android:id="@+id/txtCltId"
+            android:id="@+id/txtAgId"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/id"
+            android:text="@string/code"
             android:textSize="20dp"
             android:layout_marginTop="5dp"
             />
 
         <EditText
-            android:id="@+id/edtCltId"
+            android:id="@+id/edtAgId"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="number"
             />
 
         <TextView
-            android:id="@+id/txtCltName"
+            android:id="@+id/txtAgName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/user_name"
+            android:text="Nom Agence"
             android:textSize="20dp"
             android:layout_marginTop="5dp"
             />
 
         <EditText
-            android:id="@+id/edtClientName"
+            android:id="@+id/edtAgName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             />
+
+        <TextView
+            android:id="@+id/txtAgAddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Addresse"
+            android:textSize="20dp"
+            android:layout_marginTop="5dp"
+            />
+        <EditText
+            android:id="@+id/edtAgAddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+
+        <TextView
+            android:id="@+id/txtAgPhone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Téléphone"
+            android:textSize="20dp"
+            android:layout_marginTop="5dp"
+            />
+
+
+        <EditText
+            android:id="@+id/edtTxtAgPhone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="phone"
+            android:hint="@string/phoneHint"
+            android:autofillHints="" />
 
         <Button
             android:id="@+id/btnSave"

@@ -11,4 +11,12 @@
     <string name="ajouter_client">Ajouter Client</string>
     <string name="delete_client">Supprimer Client</string>
     <string name="save">Enregistrer</string>
+    <string name="lister_agences">lister agence</string>
+    <string name="ajouter_agence">Ajouter Agence</string>
+    <string name="client">Client</string>
+    <string name="phoneHint">+22177894939</string>
+    <string name="code">CODE</string>
+    <string name="ajouter_compte">Ajouter Compte</string>
+    <string name="lister_comptes">Lister Comptes</string>
+    <string name="decouvert_compte">Decouvert Compte</string>
 </resources>

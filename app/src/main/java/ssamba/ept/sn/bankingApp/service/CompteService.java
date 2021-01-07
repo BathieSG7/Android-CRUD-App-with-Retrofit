@@ -16,7 +16,7 @@ import ssamba.ept.sn.bankingApp.model.Compte;
 public interface CompteService {
 
     @GET("compte/")
-    Call<List<Compte>> getCompte();
+    Call<List<Compte>> getComptes();
 
     @POST("compte/")
     Call<Compte> addCompte(@Body Compte user);
