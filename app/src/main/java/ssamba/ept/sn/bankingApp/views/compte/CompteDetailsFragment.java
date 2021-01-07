@@ -112,29 +112,35 @@ public class CompteDetailsFragment extends NestedScreenFragment {
 
     public Boolean validateForm() {
         if (edtCptDecouvert.getText().length() != 0 && edtCptClient.getText().length() != 0
-                && edtCptDecouvert.getText().length() != 0) {
-            compte.setSolde(Double.parseDouble(edtCptDecouvert.getText().toString()));
+                && edtCptDecouvert.getText().length() != 0 && edtCptAgence.getText().length()!=0) {
+            compte.setSolde(Double.parseDouble(edtCptSolde.getText().toString()));
             compte.setClient(Double.parseDouble(edtCptClient.getText().toString()));
             compte.setDecouvert(Double.parseDouble(edtCptDecouvert.getText().toString()));
+            compte.setAgence(Double.parseDouble((edtCptAgence.getText().toString())));
             return true;
         } else {
-            Toast.makeText(getContext(), "ERREUR ! L'UNE DES ENTRÉES EST VIDE", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "ERREUR ! L'UNE DES ENTRÉES EST VIDE", Toast.LENGTH_LONG).show();
             return false;
         }
     }
 
     public void addCompte(Compte compte) {
         Call<Compte> call = compteService.addCompte(compte);
+        Log.d(TAG, "addCompte: "+compte);
         call.enqueue(new Callback<Compte>() {
             @Override
             public void onResponse(Call<Compte> call, Response<Compte> response) {
                 if (response.isSuccessful()) {
                     Toast.makeText(getContext(), "Compte créée avec succès!", Toast.LENGTH_LONG).show();
+                }else {
+                    Toast.makeText(getContext(), "ERREUR SERVEUR! CODE:"+response.code(), Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<Compte> call, Throwable t) {
+               if(getContext()!=null)
+                    Toast.makeText(getContext(), "Une ERREUR s'est produite!", Toast.LENGTH_SHORT).show();
                 Log.e("ERROR: ", t.getMessage());
             }
         });
@@ -154,6 +160,9 @@ public class CompteDetailsFragment extends NestedScreenFragment {
 
             @Override
             public void onFailure(Call<Compte> call, Throwable t) {
+                
+               if(getContext()!=null)
+                    Toast.makeText(getContext(), "Une ERREUR s'est produite!", Toast.LENGTH_SHORT).show();
                 Log.e("ERROR: ", t.getMessage());
             }
         });
@@ -172,6 +181,9 @@ public class CompteDetailsFragment extends NestedScreenFragment {
 
             @Override
             public void onFailure(Call<Compte> call, Throwable t) {
+
+               if(getContext()!=null)
+                    Toast.makeText(getContext(), "Une ERREUR s'est produite!", Toast.LENGTH_SHORT).show();
                 Log.e("ERROR: ", t.getMessage());
             }
         });
